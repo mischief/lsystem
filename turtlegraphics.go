@@ -10,17 +10,6 @@ import (
 	//"fmt"
 )
 
-// Pen commands
-const (
-	UP = iota
-	DOWN
-	LEFT
-	RIGHT
-	FWD
-	PUSH
-	POP
-)
-
 type Vector struct {
 	X, Y float64
 }

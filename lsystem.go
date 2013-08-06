@@ -2,9 +2,6 @@ package lsystem
 
 import (
 	"bytes"
-
-//	"strconv"
-//	"strings"
 )
 
 // Variables
@@ -55,6 +52,12 @@ func (ls *LSystem) State() string {
 	return ls.state.String()
 }
 
+func (ls *LSystem) SetState(s string) string {
+  old := ls.state.String()
+  ls.state = bytes.NewBufferString(s)
+  return old
+}
+
 func (ls *LSystem) Run(steps int) {
 	now := &bytes.Buffer{}
 
@@ -77,38 +80,6 @@ func (ls *LSystem) Run(steps int) {
 	}
 
 	now.WriteTo(ls.state)
-}
-
-func (ls *LSystem) Draw() {
-	//var commands []string
-
-	//ls.Gc.MoveTo(ls.InitPosX, ls.InitPosY)
-
-	//x, y := ls.InitPosX, ls.InitPosY
-
-	//ang := ls.InitAngle
-
-	/*
-
-		for _, ch := range ls.WorkingSet {
-			fmt.Printf("%c %s\n", ch, ls.TurtleGraphics[ch])
-			commands = append(commands, ls.TurtleGraphics[ch])
-		}
-
-		for _, cmd := range commands {
-			spl := strings.Split(cmd, " ")
-			if spl != nil && spl[0] == "" {
-				ls.TurtleFns[cmd](ls, 0)
-			} else {
-				arg, err := strconv.Atoi(spl[1])
-				if err != nil {
-					fmt.Printf("conversion error: %s: %s\n", spl[1], err)
-					break
-				}
-				ls.TurtleFns[spl[0]](ls, arg)
-			}
-		}
-	*/
 }
 
 func NewLSystem(start string, vars *Variables, cons *Constants, rules *Rules) *LSystem {
