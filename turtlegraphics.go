@@ -163,6 +163,7 @@ func NewTurtleGraphics(width, height int, rules *TurtleGraphicsRules) *TurtleGra
 
 	tg.Image = image.NewRGBA(image.Rect(0, 0, width, height))
 	tg.Gc = draw2d.NewGraphicContext(tg.Image)
+  tg.Gc.Clear()
 
 	return tg
 }
