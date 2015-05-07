@@ -53,9 +53,9 @@ func (ls *LSystem) State() string {
 }
 
 func (ls *LSystem) SetState(s string) string {
-  old := ls.state.String()
-  ls.state = bytes.NewBufferString(s)
-  return old
+	old := ls.state.String()
+	ls.state = bytes.NewBufferString(s)
+	return old
 }
 
 func (ls *LSystem) Run(steps int) {
