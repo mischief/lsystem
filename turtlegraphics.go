@@ -21,6 +21,11 @@ type TGCall struct {
 	Arg  int
 }
 
+type TGState struct {
+	P Vector
+	A float64
+}
+
 // TurtleGraphics rules.
 //
 // Maps the L-System state string to some code to be executed
@@ -51,10 +56,11 @@ type TurtleGraphics struct {
 	InitPosX, InitPosY float64
 	InitAngle          float64
 
+	// Current position
 	Pos Vector
 
-	// Current X, Y, Angle
-	CX, CY, CA float64
+	// Current Angle
+	CA float64
 
 	// TODO:
 	// add stack functions
@@ -67,6 +73,7 @@ type TurtleGraphics struct {
 
 	// TurtleGraphics state
 	//PosStack, AngleStack Stack
+	Stack []TGState
 }
 
 // Draw the LSystem to the image buffer
@@ -99,6 +106,23 @@ func (tg *TurtleGraphics) getnewpos(angle, distance float64) Vector {
 	newp.Y += tg.Pos.Y
 
 	return newp
+}
+
+func Push(tg *TurtleGraphics, unused int) {
+	st := TGState{tg.Pos, tg.CA}
+	tg.Stack = append(tg.Stack, st)
+}
+
+func Pop(tg *TurtleGraphics, unused int) {
+	if tg.Stack == nil || len(tg.Stack) == 0 {
+		return
+	}
+
+	st := tg.Stack[len(tg.Stack)-1]
+	tg.Stack = tg.Stack[:len(tg.Stack)-1]
+
+	tg.Pos, tg.CA = st.P, st.A
+	tg.Gc.MoveTo(tg.Pos.X, tg.Pos.Y)
 }
 
 // Draw function.
