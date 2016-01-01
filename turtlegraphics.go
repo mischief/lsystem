@@ -7,7 +7,7 @@ import (
 	"math"
 	"os"
 
-	"github.com/llgcode/draw2d"
+	"github.com/llgcode/draw2d/draw2dimg"
 )
 
 type Vector struct {
@@ -43,7 +43,7 @@ func (tg *TurtleGraphicsRules) Add(let rune, fn TGFunc, arg int) *TurtleGraphics
 // and dump it to a file.
 type TurtleGraphics struct {
 	Image *image.RGBA
-	Gc    draw2d.GraphicContext
+	Gc    *draw2dimg.GraphicContext
 
 	rules *TurtleGraphicsRules
 
@@ -162,7 +162,7 @@ func NewTurtleGraphics(width, height int, rules *TurtleGraphicsRules) *TurtleGra
 	}
 
 	tg.Image = image.NewRGBA(image.Rect(0, 0, width, height))
-	tg.Gc = draw2d.NewGraphicContext(tg.Image)
+	tg.Gc = draw2dimg.NewGraphicContext(tg.Image)
 	tg.Gc.Clear()
 
 	return tg
