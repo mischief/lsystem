@@ -81,7 +81,7 @@ func (tg *TurtleGraphics) Draw(ls *LSystem) {
 	str := ls.State()
 
 	tg.Pos = Vector{tg.InitPosX, tg.InitPosY}
-	tg.CA = 90.0
+	tg.CA = tg.InitAngle
 	tg.Gc.BeginPath()
 	tg.Gc.MoveTo(tg.InitPosX, tg.InitPosY)
 
@@ -182,7 +182,7 @@ func NewTurtleGraphics(width, height int, rules *TurtleGraphicsRules) *TurtleGra
 
 		InitPosX:  float64(width / 2),
 		InitPosY:  float64(height / 2),
-		InitAngle: 0.0,
+		InitAngle: 90.0,
 	}
 
 	tg.Image = image.NewRGBA(image.Rect(0, 0, width, height))
